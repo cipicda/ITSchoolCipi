@@ -35,3 +35,6 @@ function generateSibling(person, name, age, city) {
 }
 
 console.log(generateSibling(person, "Ioana", 9, "Cluj"));
+
+window.alert(`Hello! ${person.name}`);
+window.prompt("Enter your name", "Name");
