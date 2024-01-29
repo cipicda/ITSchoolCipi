@@ -17,7 +17,7 @@ const person = {
   name: "Mihai",
   age: 20,
   addres: {
-    street: "Nume Strata",
+    street: "Nume Strada",
     numar: "10",
   },
 };
