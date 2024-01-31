@@ -11,6 +11,12 @@ sendFilesButton.addEventListener("click", () => {
 const shoppingList = document.getElementsByClassName("list-item");
 const shoppingDoneButton = document.getElementById("shopping-done");
 
+for (let item of shoppingList) {
+  item.addEventListener("click", () => {
+    item.innerText = item.innerText + " (Cumparat)";
+  });
+}
+
 shoppingDoneButton.addEventListener("click", () => {
   for (let item of shoppingList) {
     item.innerText = item.innerText + "(Cumparat)";
