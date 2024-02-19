@@ -1,17 +1,17 @@
-/*
+/**
  * HOISTING
  *
- * VAR vs LET vs CONST
+ * var vs let vs const
  */
 
 function randomFunction() {
-  if (true) {
-    var randomVariable = 10;
+    if (true) {
+        let randomVariable = 10;
+
+        console.log(randomVariable);
+    }
 
     console.log(randomVariable);
-  }
-
-  console.log(randomVariable);
 }
 
 randomFunction();

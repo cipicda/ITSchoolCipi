@@ -1,62 +1,59 @@
 console.log(this);
 
 function sayHello() {
-  console.log("Hello", this);
+    console.log("Hello", this);
 }
 
 sayHello();
 
-function PesrsonProfile(name, age, city, gender = "Male") {
-  this.name = name;
-  this.age = age;
-  this.city = city;
+function PersonProfile(name, age, city, gender = "Male") {
+    this.name = name;
+    this.age = age;
+    this.city = city;
 
-  this.gender = gender;
+    this.gender = gender;
 
-  this.greet = function () {
-    console.log(`Salut! Eu sunt ${this.name} - ${this.gender}`);
-  };
+    this.greet = function () {
+        console.log(`Salut! Eu sunt ${this.name} - ${this.gender}`);
+    };
 
-  this.showThis = function () {
-    console.log(this);
-  };
-
-  this.showThis = () => {
-    console.log(this);
-  };
+    this.showThis = () => {
+        console.log(this);
+    };
 }
 
-const person1 = new PesrsonProfile("Andrei", 10, "Arad");
-const person2 = new PesrsonProfile("Mihaela", 24, "Cluj");
+const person1 = new PersonProfile("Andrei", 10, "Arad", "Male");
+const person2 = new PersonProfile("Mihaela", 24, "Cluj");
 
 person1.greet();
-person1.greet();
+person1.showThis();
 
 person2.greet();
 person2.showThis();
 
-PesrsonProfile.prototype.functieInPlus = function () {
-  console.log("Eu sunt o functie in plus");
+PersonProfile.prototype.functieInPlus = function () {
+    console.log("Eu sunt o functie in plus");
 };
+
 person1.functieInPlus();
 
 Array.prototype.showFirstAndLastElement = function () {
-  console.log(this[0], this[this.length - 1]);
+    console.log(this[0], this[this.length - 1]);
 };
 
 Array.prototype.getHighestNumber = function () {
-  let max = this[0];
+    let max = this[0];
 
-  for (let i = 1; i < this.length; i++) {
-    if (this[i] > max) {
-      max = this[i];
+    for (let i = 1; i < this.length; i++) {
+        if (this[i] > max) {
+            max = this[i];
+        }
     }
-  }
 
-  return max;
+    return max;
 };
 
-const numbers = [1, 2, 3, 4, -100, 10, -200];
+const numbers = [1, 2, 3, 4, -1, 100, 10, -200];
 numbers.showFirstAndLastElement();
 
 console.log(numbers.getHighestNumber());
