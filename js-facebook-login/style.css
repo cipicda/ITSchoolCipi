@@ -33,13 +33,13 @@ main {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  width: 40%;
+  gap: 1rem;
+  width: 22rem;
   background-color: #fff;
-  height: 350px;
+  height: 22rem;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-  padding: 15px;
+  padding: 1rem;
 }
 
 .form .email,
@@ -51,9 +51,9 @@ main {
 }
 
 .form .login {
-  padding: 15px;
+  padding: 1rem;
   border: 1px solid #dddfe2;
-  border-radius: 7px;
+  border-radius: 0.5rem;
   background-color: #1877f2;
   font-size: 1.1rem;
   text-align: center;
