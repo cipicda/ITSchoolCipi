@@ -46,9 +46,25 @@ function saveColumns() {
 }
 
 function showColumns() {
-  columns.forEach((column) => {
+  columns.forEach((column, columnIndex) => {
     const columnElement = document.createElement("div");
     columnElement.classList.add("column");
+    columnElement.setAttribute("id", columnIndex);
+
+    columnElement.addEventListener("dragover", (event) => {
+      event.preventDefault();
+
+      event.target.classList.add("dragging-over");
+    });
+
+    columnElement.addEventListener("dragleave", (event) => {
+      event.target.classList.remove("dragging-over");
+    });
+
+    columnElement.addEventListener("drop", (event) => {
+      event.target.classList.remove("dragging-over");
+      const data = JSON.parse(event.dataTransfer.getData("text"));
+    });
 
     const columnTitleContainer = document.createElement("div");
     columnTitleContainer.classList.add("title-container");
@@ -70,6 +86,31 @@ function showColumns() {
     const taskConntainerElement = document.createElement("div");
     taskConntainerElement.classList.add("tasks");
 
+    //Varianta rapida, dar neoptimizata
+    for (let [index, task] of column.tasks.entries()) {
+      const taskElement = document.createElement("div");
+      taskElement.classList.add("task");
+      taskElement.setAttribute("draggable", true);
+      taskElement.setAttribute("id", index);
+      taskElement.setAttribute("columId", columnIndex);
+      taskElement.textContent = task;
+
+      taskConntainerElement.appendChild(taskElement);
+
+      taskElement.addEventListener("dragstart", (event) => {
+        event.dataTransfer.setData("text/plain", {
+          taskId: event.target.id,
+          culimnId: event.target.getAttribute("columnId"),
+        });
+
+        event.target.classList.add("dragging");
+      });
+
+      taskElement.addEventListener("dragend", (event) => {
+        event.target.classList.remove("dragging");
+      });
+    }
+
     const createTaskInputLabel = document.createElement("p");
     createTaskInputLabel.classList.add("label");
     createTaskInputLabel.textContent = "Adauga un nou task...";
@@ -79,6 +120,12 @@ function showColumns() {
     createTaskInput.classList.add("create-task");
     createTaskInput.setAttribute("type", "text");
     createTaskInput.style.display = "none";
+
+    createTaskInput.addEventListener("change", (event) => {
+      if (!event.target.value) return;
+      addTaskToColumn(event.target.value, column.name);
+      event.target.value = "";
+    });
 
     columnElement.appendChild(columnTitleContainer);
     columnElement.appendChild(taskConntainerElement);
@@ -94,12 +141,27 @@ function showColumns() {
   });
 }
 
-function clearBoard() {
-  boardElement.innerHTML = "";
+function addTaskToColumn(task, columnName) {
+  for (let column of columns) {
+    if (column.name === columnName) {
+      column.tasks.push(task);
+      break;
+    }
+  }
+
+  saveColumns();
+  // refreshBoard();
+  /**
+   * IMBUNATATIRI:
+   *
+   * Selectam coloana cu id pe care am adaugat task
+   * Sa sekectez div cu clasa tasks din coloana respectiva
+   * Append Child la task
+   */
 }
 
 function refreshBoard() {
-  clearBoard();
+  boardElement.innerHTML = "";
   showColumns();
 }
 
@@ -107,6 +169,7 @@ function deleteColumn(columnName) {
   columns = columns.filter((column) => {
     return column.name !== columnName;
   });
+
   saveColumns();
 
   refreshBoard();
