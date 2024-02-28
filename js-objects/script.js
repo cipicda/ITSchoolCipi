@@ -1,7 +1,7 @@
 const person = {
-    name: "Mihai",
-    age: 12,
-    city: "Timisoara",
+  name: "Mihai",
+  age: 12,
+  city: "Timisoara",
 };
 
 // person = {};
@@ -23,13 +23,13 @@ delete person.name;
 console.log(person);
 
 for (let proprietate in person) {
-    if (proprietate === "age") {
-        console.log(proprietate, person[proprietate]);
-    }
+  if (proprietate === "age") {
+    console.log(proprietate, person[proprietate]);
+  }
 }
 
 for (let [cheie, valoare] of Object.entries(person)) {
-    console.log(cheie, valoare);
+  console.log(cheie, valoare);
 }
 
 Object.freeze(person);
